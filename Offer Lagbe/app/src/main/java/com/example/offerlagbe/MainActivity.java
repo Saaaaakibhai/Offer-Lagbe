@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
                     case 3:
                         transaction.replace(R.id.container,new SearchFragment());
                         break;
+                        //Showing a notification on above of the page when we slide into it
                     case 4:
                         Toast.makeText(MainActivity.this, "Profile Selected", Toast.LENGTH_SHORT).show();
                         transaction.replace(R.id.container,new ProfileFragment());
