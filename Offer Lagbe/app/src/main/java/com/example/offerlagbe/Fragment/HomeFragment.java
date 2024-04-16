@@ -29,19 +29,16 @@ public class HomeFragment extends Fragment {
         // Required empty public constructor
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+
         storyRv = view.findViewById(R.id.storyRV);
         list = new ArrayList<>();
 
@@ -66,20 +63,20 @@ public class HomeFragment extends Fragment {
         dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory02,R.drawable.savebookmark,
                 "Sulekho","Clothing Brand","350","50","5"));
         dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory,R.drawable.savebookmark,
-                "Yellow","Clothing Brand","300","20","2"));
+                "Yellow","Clothing Brand","3070","290","2"));
         dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory02,R.drawable.savebookmark,
-                "Sulekho","Clothing Brand","350","50","5"));
+                "Esticy","Clothing Brand","550","50","5"));
         dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory02,R.drawable.savebookmark,
-                "Sulekho","Clothing Brand","350","50","5"));
+                "Peaky Closest","Clothing Brand","350","50","5"));
         dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory02,R.drawable.savebookmark,
-                "Sulekho","Clothing Brand","350","50","5"));
-
+                "Ayna","Clothing Brand","450","50","5"));
 
         DashboardAdapter dashboardAdapter = new DashboardAdapter(dashboardList,getContext());
+        dashboardRv.setAdapter(dashboardAdapter);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         dashboardRv.setLayoutManager(layoutManager);
         dashboardRv.setNestedScrollingEnabled(false);
-        dashboardRv.setAdapter(dashboardAdapter);
+
         return view;
     }
 }

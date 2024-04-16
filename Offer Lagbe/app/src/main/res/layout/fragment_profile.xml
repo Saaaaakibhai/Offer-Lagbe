@@ -58,5 +58,17 @@
         diagonal:layout_constraintTop_toTopOf="@+id/linearLayout"
         diagonal:layout_constraintVertical_bias="1.0" />
 
+    <ImageView
+        android:id="@+id/imageView5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/iconverify"
+        diagonal:layout_constraintBottom_toBottomOf="@+id/linearLayout"
+        diagonal:layout_constraintEnd_toEndOf="@+id/profile_image"
+        diagonal:layout_constraintHorizontal_bias="0.93"
+        diagonal:layout_constraintStart_toStartOf="@+id/profile_image"
+        diagonal:layout_constraintTop_toTopOf="@+id/profile_image"
+        diagonal:layout_constraintVertical_bias="0.94" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

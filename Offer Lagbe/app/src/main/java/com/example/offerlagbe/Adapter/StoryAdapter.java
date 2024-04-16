@@ -64,9 +64,4 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.viewHolder> 
 
         }
     }
-
-
-
-
-
 }

@@ -17,7 +17,6 @@ import java.util.ArrayList;
 
 public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.viewHolder> {
 
-
     ArrayList<DashboardModel> list;
     Context context;
 
@@ -54,11 +53,12 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.view
 
         //Hold all image
         ImageView profile,postImage,save;
-        TextView name,about,like,comment,share;
+        TextView name, about, like, comment, share;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            /// Modifing data with help of according to dashboardrvsample id name///
+            /// Modifying data with help of according to dashboardrvsample id name ///
+
             profile = itemView.findViewById(R.id.profile_image);
             postImage = itemView.findViewById(R.id.postImg);
             save = itemView.findViewById(R.id.save);
@@ -69,5 +69,4 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.view
             share = itemView.findViewById(R.id.share);
         }
     }
-
 }
