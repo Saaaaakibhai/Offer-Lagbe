@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1018003883432",
+    "project_id": "offer-lagbe",
+    "storage_bucket": "offer-lagbe.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1018003883432:android:b5dbd7cea756b3a338099d",
+        "android_client_info": {
+          "package_name": "com.example.freelearning"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCbyLIsyb0XvIPuMjK9GQJyfxzhnJQhegI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
