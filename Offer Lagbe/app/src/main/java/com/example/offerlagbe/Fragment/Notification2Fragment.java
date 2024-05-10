@@ -45,19 +45,19 @@ public class Notification2Fragment extends Fragment {
         list = new ArrayList<>();
         list.add(new NotificationModel(R.drawable.profile,"<b>Jubayer Emon</b> mentioned you in a comment: Nice Try!",
                 "just now"));
-        list.add(new NotificationModel(R.drawable.deaf,"<b>Billal Mia</b> liked you picture.",
+        list.add(new NotificationModel(R.drawable.notificationprofiletoha,"<b>Toha Suvha</b> liked you picture.",
                 "40 minutes ago"));
         list.add(new NotificationModel(R.drawable.dennis,"<b>Saddam Hossen</b> commented on your post.",
                 "2 hours"));
         list.add(new NotificationModel(R.drawable.homefragmentstory02,"<b>Tonmoy Chowdhury</b> mentioned you in a comment: try again",
                 "3 hours"));
-        list.add(new NotificationModel(R.drawable.homefragmentstory,"<b>M. Amin</b> mentioned you in a comment: try again",
+        list.add(new NotificationModel(R.drawable.notificationprofiletoha,"<b>M. Amin</b> mentioned you in a comment: try again",
                 "3 hours"));
         list.add(new NotificationModel(R.drawable.profilefragment__profilepicture,"<b>Toukir Ahamed</b> mentioned you in a comment: well done",
                 "4 hours"));
         list.add(new NotificationModel(R.drawable.profilefragment__profilecover,"<b>Munia Haque</b> mentioned you in a comment: eta tumi",
                 "6 hours"));
-        list.add(new NotificationModel(R.drawable.profilefragment__profilepicture2,"<b>Safa Khan</b> mentioned you in a comment: eid mubarak",
+        list.add(new NotificationModel(R.drawable.profilefragment__profilepicture2,"<b>Safa Khan</b> mentioned you in a comment: peaky onek joss product dey",
                 "6 hours"));
         list.add(new NotificationModel(R.drawable.deaf,"<b>Hemon Khan</b> mentioned you in a comment: eta ami",
                 "9 hours"));

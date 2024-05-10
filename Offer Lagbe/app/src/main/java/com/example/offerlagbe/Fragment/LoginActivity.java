@@ -46,7 +46,6 @@ public class LoginActivity extends AppCompatActivity {
                         startActivity(intent);
                     }
                 });
-
             }
         });
         binding.goToSignup.setOnClickListener(new View.OnClickListener() {
@@ -56,8 +55,6 @@ public class LoginActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-
     }
 
     @Override

@@ -59,7 +59,7 @@ public class DashboardAdapter extends RecyclerView.Adapter<DashboardAdapter.view
             super(itemView);
             /// Modifying data with help of according to dashboardrvsample id name ///
 
-            profile = itemView.findViewById(R.id.profile_image);
+            profile = itemView.findViewById(R.id.profileImage);
             postImage = itemView.findViewById(R.id.postImg);
             save = itemView.findViewById(R.id.save);
             name = itemView.findViewById(R.id.brand_user_name);

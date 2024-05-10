@@ -44,11 +44,12 @@ public class HomeFragment extends Fragment {
 
 
         //Story,Story Type(live or normal),profile,string name
-        list.add(new StoryModel(R.drawable.dennis,R.drawable.ic_video_camera,R.drawable.deaf,"Sulekho"));
+        list.add(new StoryModel(R.drawable.dennis,R.drawable.ic_video_camera,R.drawable.deaf,"Bata"));
         list.add(new StoryModel(R.drawable.dennis,R.drawable.live,R.drawable.deaf,"Sulekho"));
         list.add(new StoryModel(R.drawable.dennis,R.drawable.ic_video_camera,R.drawable.deaf,"Sulekho"));
         list.add(new StoryModel(R.drawable.dennis,R.drawable.ic_video_camera,R.drawable.deaf,"Sulekho"));
         list.add(new StoryModel(R.drawable.dennis,R.drawable.ic_video_camera,R.drawable.deaf,"Sulekho"));
+
 
         StoryAdapter adapter = new StoryAdapter(list,getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
@@ -70,6 +71,9 @@ public class HomeFragment extends Fragment {
                 "Peaky Closest","Clothing Brand","350","50","5"));
         dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory02,R.drawable.savebookmark,
                 "Ayna","Clothing Brand","450","50","5"));
+        dashboardList.add(new DashboardModel(R.drawable.profile,R.drawable.homefragmentstory02,R.drawable.savebookmark,
+                "Bata","Shoes Brand","450","50","5"));
+
 
         DashboardAdapter dashboardAdapter = new DashboardAdapter(dashboardList,getContext());
         dashboardRv.setAdapter(dashboardAdapter);

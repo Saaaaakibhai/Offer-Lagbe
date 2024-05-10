@@ -2,6 +2,20 @@ package com.example.offerlagbe.Fragment;
 
 public class User {
     private String name,companyname,email,password;
+    private String coverPhoto;
+    private String profile;
+
+    public User() {
+
+    }
+
+    public String getCoverPhoto() {
+        return coverPhoto;
+    }
+
+    public void setCoverPhoto(String coverPhoto) {
+        this.coverPhoto = coverPhoto;
+    }
 
     public User(String name, String companyname, String email, String password) {
         this.name = name;
@@ -40,5 +54,13 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }
