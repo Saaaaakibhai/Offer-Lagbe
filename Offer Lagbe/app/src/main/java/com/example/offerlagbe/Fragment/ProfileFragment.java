@@ -134,7 +134,7 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode ==11){
+        if(requestCode == 11){
             if(data.getData()!=null){
                 Uri uri=data.getData();
                 binding.coverPhoto.setImageURI(uri);
