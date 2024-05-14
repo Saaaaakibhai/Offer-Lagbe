@@ -15,8 +15,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.example.offerlagbe.Adapter.FriendAdapter;
-import com.example.offerlagbe.Model.FriendModel;
+import com.example.offerlagbe.Adapter.FollowersAdapter;
+import com.example.offerlagbe.Model.Follow;
 import com.example.offerlagbe.R;
 import com.example.offerlagbe.databinding.FragmentProfileBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -36,7 +36,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
 
     RecyclerView recyclerView;
-    ArrayList<FriendModel> list;
+    ArrayList<Follow> list;
     FragmentProfileBinding binding;
     FirebaseAuth auth;
     FirebaseStorage storage;
@@ -83,20 +83,31 @@ public class ProfileFragment extends Fragment {
         });
 
         list = new ArrayList<>();
-        list.add(new FriendModel(R.drawable.profile));
-//        recyclerView = view.findViewById(R.id.friendRV);
-        list = new ArrayList<>();
-        list.add(new FriendModel(R.drawable.profilefragment__profilepicture));
-        list.add(new FriendModel(R.drawable.notificationprofiletoha));
-        list.add(new FriendModel(R.drawable.profile));
-        list.add(new FriendModel(R.drawable.profile));
-        list.add(new FriendModel(R.drawable.profile));
-        list.add(new FriendModel(R.drawable.profile));
 
-        FriendAdapter adapter = new FriendAdapter(list,getContext());
+
+        FollowersAdapter adapter = new FollowersAdapter(list,getContext());
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false);
         binding.friendRV.setLayoutManager(linearLayoutManager);
         binding.friendRV.setAdapter(adapter);
+
+        database.getReference().child("Users")
+                        .child(auth.getUid())
+                                .child("followers").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()){
+                            Follow follow =  dataSnapshot.getValue(Follow.class);
+                            list.add(follow);
+                        }
+                        adapter.notifyDataSetChanged();
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
         binding.changeCoverPhoto.setOnClickListener(new View.OnClickListener() {
                 @Override
