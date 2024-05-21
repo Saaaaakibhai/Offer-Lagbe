@@ -1,23 +1,31 @@
 package com.example.offerlagbe;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.offerlagbe.Fragment.AddFragment;
+
+import com.example.offerlagbe.Fragment.AddPostFragment;
 import com.example.offerlagbe.Fragment.HomeFragment;
+import com.example.offerlagbe.Fragment.LoginActivity;
 import com.example.offerlagbe.Fragment.NotificationFragment;
 import com.example.offerlagbe.Fragment.ProfileFragment;
 import com.example.offerlagbe.Fragment.SearchFragment;
 import com.example.offerlagbe.databinding.ActivityMainBinding;
+import com.google.firebase.auth.FirebaseAuth;
 import com.iammert.library.readablebottombar.ReadableBottomBar;
 
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
+    FirebaseAuth auth = FirebaseAuth.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         binding.toolbar.setVisibility(View.GONE);
-                        transaction.replace(R.id.container,new AddFragment());
+                        transaction.replace(R.id.container,new AddPostFragment());
                         break;
                     case 3:
                         binding.toolbar.setVisibility(View.GONE);
@@ -71,5 +79,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_item,menu);
         return true;
+    }
+
+    @SuppressLint("NonConstantResourceId")
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int itemId= item.getItemId();
+        if(itemId==R.id.setting){
+            Toast.makeText(this, "Setting Clicked", Toast.LENGTH_SHORT).show();
+            auth.signOut();
+            Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+            startActivity(intent);
+
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

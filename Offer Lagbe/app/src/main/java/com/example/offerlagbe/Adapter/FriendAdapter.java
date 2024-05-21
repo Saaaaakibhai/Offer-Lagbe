@@ -24,6 +24,7 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.viewHolder
         this.context = context;
     }
 
+
     @NonNull
     @Override
     public viewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -44,9 +45,12 @@ public class FriendAdapter extends RecyclerView.Adapter<FriendAdapter.viewHolder
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
+
         ImageView profile;
+
         public viewHolder(@NonNull View itemView) {
             super(itemView);
+
             profile = itemView.findViewById(R.id.profileImage);
         }
     }
