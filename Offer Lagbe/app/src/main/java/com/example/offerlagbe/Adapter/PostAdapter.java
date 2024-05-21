@@ -47,32 +47,36 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
                 .placeholder(R.drawable.placeholder)
                 .into(holder.binding.postImg);
         String description = model.getPostDescription();
-        if(description.equals("")){
+        if (description == null || description.equals("")) {
             holder.binding.postDescription.setVisibility(View.GONE);
-        }else{
-            holder.binding.postDescription.setText(model.getPostDescription());
+        } else {
+            holder.binding.postDescription.setText(description);
             holder.binding.postDescription.setVisibility(View.VISIBLE);
         }
+        String postedBy = model.getPostedBy();
+        if (postedBy != null) {
+            FirebaseDatabase.getInstance().getReference().child("Users")
+                    .child(postedBy).addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            User user = snapshot.getValue(User.class);
+                            if (user != null) {
+                                Picasso.get()
+                                        .load(user.getProfile())
+                                        .placeholder(R.drawable.placeholder)
+                                        .into(holder.binding.profileImage);
+                                holder.binding.brandUserName.setText(user.getName());// Dashboard Company brand Name User Name in Home Page
+                                holder.binding.about.setText(user.getCompanyname());// Dashboard Company Name in Home Page
 
-        FirebaseDatabase.getInstance().getReference().child("Users")
-                .child(model.getPostedBy()).addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        User user = snapshot.getValue(User.class);
-                        Picasso.get()
-                                .load(user.getProfile())
-                                .placeholder(R.drawable.placeholder)
-                                .into(holder.binding.profileImage);
-                        holder.binding.brandUserName.setText(user.getName());// Dashboard Company brand Name User Name in Home Page
-                        holder.binding.about.setText(user.getCompanyname());// Dashboard Company Name in Home Page
+                            }
+                        }
 
-                    }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
+                        }
+                    });
+        }
     }
 
     @Override
