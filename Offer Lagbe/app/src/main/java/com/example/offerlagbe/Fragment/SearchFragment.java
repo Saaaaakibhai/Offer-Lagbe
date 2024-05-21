@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 
 import com.example.offerlagbe.Adapter.UserAdapter;
 // import com.example.offerlagbe.Model.User;
+import com.example.offerlagbe.Model.User;
 import com.example.offerlagbe.databinding.FragmentSearchBinding;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -60,8 +61,8 @@ public class SearchFragment extends Fragment {
                 list.clear(); // Clear the list before adding new data
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     User user = dataSnapshot.getValue(User.class);
-                    if (user != null) {
-                        user.setUserID(dataSnapshot.getKey());
+                    user.setUserID(dataSnapshot.getKey());
+                    if(!dataSnapshot.getKey().equals(FirebaseAuth.getInstance().getUid())){
                         list.add(user);
                     }
                 }

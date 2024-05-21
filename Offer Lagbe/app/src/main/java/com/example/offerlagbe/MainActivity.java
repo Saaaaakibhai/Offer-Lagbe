@@ -12,7 +12,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.offerlagbe.Fragment.AddFragment;
+
+import com.example.offerlagbe.Fragment.AddPostFragment;
 import com.example.offerlagbe.Fragment.HomeFragment;
 import com.example.offerlagbe.Fragment.LoginActivity;
 import com.example.offerlagbe.Fragment.NotificationFragment;
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         binding.toolbar.setVisibility(View.GONE);
-                        transaction.replace(R.id.container,new AddFragment());
+                        transaction.replace(R.id.container,new AddPostFragment());
                         break;
                     case 3:
                         binding.toolbar.setVisibility(View.GONE);

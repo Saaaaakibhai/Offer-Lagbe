@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.offerlagbe.Adapter.FollowersAdapter;
 import com.example.offerlagbe.Model.Follow;
+import com.example.offerlagbe.Model.User;
 import com.example.offerlagbe.R;
 import com.example.offerlagbe.databinding.FragmentProfileBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -74,6 +75,8 @@ public class ProfileFragment extends Fragment {
                     Picasso.get().load(user.getProfile()).placeholder(R.drawable.placeholder).into(binding.profileImage);
                     binding.userName.setText(user.getName());
                     binding.companyname.setText(user.getCompanyname());
+                    binding.followers.setText(user.getFollowerCount()+"");
+
                 }
             }
             @Override
@@ -95,6 +98,7 @@ public class ProfileFragment extends Fragment {
                                 .child("followers").addValueEventListener(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        list.clear();
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()){
                             Follow follow =  dataSnapshot.getValue(Follow.class);
                             list.add(follow);

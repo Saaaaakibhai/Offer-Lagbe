@@ -43,27 +43,27 @@ public class Notification2Fragment extends Fragment {
         recyclerView = view.findViewById(R.id.notification2RV);
 
         list = new ArrayList<>();
-        list.add(new NotificationModel(R.drawable.profile,"<b>Jubayer Emon</b> mentioned you in a comment: Nice Try!",
+        list.add(new NotificationModel(R.drawable.notificationprofiletaj,"<b>Taj Talukdar</b> mentioned you in a comment: Nice Dress",
                 "just now"));
         list.add(new NotificationModel(R.drawable.notificationprofiletoha,"<b>Toha Suvha</b> liked you picture.",
                 "40 minutes ago"));
-        list.add(new NotificationModel(R.drawable.dennis,"<b>Saddam Hossen</b> commented on your post.",
+        list.add(new NotificationModel(R.drawable.notificationprofileeshika,"<b>Eshika</b> commented on your post.",
                 "2 hours"));
-        list.add(new NotificationModel(R.drawable.homefragmentstory02,"<b>Tonmoy Chowdhury</b> mentioned you in a comment: try again",
+        list.add(new NotificationModel(R.drawable.notificationprofilefaria,"<b>Faria Chowdhury</b> mentioned you in a comment: beautiful shoes",
                 "3 hours"));
-        list.add(new NotificationModel(R.drawable.notificationprofiletoha,"<b>M. Amin</b> mentioned you in a comment: try again",
+        list.add(new NotificationModel(R.drawable.notificationprofilehridoy,"<b>Hridoy</b> mentioned you in a comment: i love it ",
                 "3 hours"));
-        list.add(new NotificationModel(R.drawable.profilefragment__profilepicture,"<b>Toukir Ahamed</b> mentioned you in a comment: well done",
+        list.add(new NotificationModel(R.drawable.notificationprofilerana,"<b>Rana</b> mentioned you in a comment: good product",
                 "4 hours"));
-        list.add(new NotificationModel(R.drawable.profilefragment__profilecover,"<b>Munia Haque</b> mentioned you in a comment: eta tumi",
+        list.add(new NotificationModel(R.drawable.notificationprofilerefat,"<b>Tahsin Refat</b> mentioned you in a comment: love it",
                 "6 hours"));
-        list.add(new NotificationModel(R.drawable.profilefragment__profilepicture2,"<b>Safa Khan</b> mentioned you in a comment: peaky onek joss product dey",
+        list.add(new NotificationModel(R.drawable.notificationprofilerimon,"<b>Rimon</b> mentioned you in a comment: peaky onek joss product dey",
                 "6 hours"));
-        list.add(new NotificationModel(R.drawable.deaf,"<b>Hemon Khan</b> mentioned you in a comment: eta ami",
+        list.add(new NotificationModel(R.drawable.notificationprofilerohan,"<b>Yash Rohan</b> mentioned you in a comment: i will repurchase from here",
                 "9 hours"));
-        list.add(new NotificationModel(R.drawable.deaf,"<b>Farhad Khan</b> liked your cover photo",
+        list.add(new NotificationModel(R.drawable.notificationprofileshezan,"<b>Shezan Khan</b> liked your cover photo",
                 "yesterday"));
-        list.add(new NotificationModel(R.drawable.deaf,"<b>Katrina Solaiman</b> mentioned you in a comment: try again",
+        list.add(new NotificationModel(R.drawable.notificationprofileuday,"<b>Uday Maruf</b> mentioned you in a comment: nice shoes",
                 "yesterday"));
 
         NotificationAdapter adapter = new NotificationAdapter(list,getContext());
