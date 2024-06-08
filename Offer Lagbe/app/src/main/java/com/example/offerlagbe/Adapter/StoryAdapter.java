@@ -10,17 +10,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.offerlagbe.Model.StoryModel;
+import com.example.offerlagbe.Model.Story;
 import com.example.offerlagbe.R;
+import com.example.offerlagbe.databinding.StoryRvDesignBinding;
 
 import java.util.ArrayList;
 
 public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.viewHolder> {
 
-    ArrayList<StoryModel> list;
+    ArrayList<Story> list;
     Context context;
 
-    public StoryAdapter(ArrayList<StoryModel> list, Context context) {
+    public StoryAdapter(ArrayList<Story> list, Context context) {
         this.list = list;
         this.context = context;
     }
@@ -37,11 +38,8 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.viewHolder> 
     @Override
     public void onBindViewHolder(@NonNull viewHolder holder, int position) {
         //hold image from the design //Set all views data
-        StoryModel model = list.get(position);
-        holder.storyImg.setImageResource(model.getStory());
-        holder.profile.setImageResource(model.getProfile());
-        holder.storyType.setImageResource(model.getStoryType());
-        holder.name.setText(model.getName());
+        Story story= list.get(position);
+
 
     }
 
@@ -51,17 +49,10 @@ public class StoryAdapter extends RecyclerView.Adapter<StoryAdapter.viewHolder> 
     }
 
     public class viewHolder extends RecyclerView.ViewHolder{
-        ImageView storyImg, profile, storyType;
-        TextView name;
-
+        StoryRvDesignBinding binding;
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-
-            storyImg = itemView.findViewById(R.id.story);
-            profile = itemView.findViewById(R.id.profileImage);
-            storyType = itemView.findViewById(R.id.storyType);
-            name = itemView.findViewById(R.id.name);
-
+            binding = StoryRvDesignBinding.bind(itemView);
         }
     }
 }

@@ -6,6 +6,8 @@ public class Post {
     private String postedBy;
     private String postDescription;
     private long postedAt;
+    private int postLike;
+
 
     public Post(String postId, String postImage, String postedBy, String postDescription, long postedAt) {
         this.postId = postId;
@@ -57,5 +59,13 @@ public class Post {
 
     public void setPostedAt(long postedAt) {
         this.postedAt = postedAt;
+    }
+
+    public int getPostLike() {
+        return postLike;
+    }
+
+    public void setPostLike(int postLike) {
+        this.postLike = postLike;
     }
 }

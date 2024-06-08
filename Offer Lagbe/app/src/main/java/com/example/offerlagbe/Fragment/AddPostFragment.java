@@ -17,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import static android.app.Activity.RESULT_OK;
+
 import com.example.offerlagbe.Model.Post;
 import com.example.offerlagbe.Model.User;
 import com.example.offerlagbe.R;
@@ -34,7 +36,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Date;
 
-
 public class AddPostFragment extends Fragment {
     FragmentAddPostBinding binding;
     Uri uri;
@@ -42,6 +43,7 @@ public class AddPostFragment extends Fragment {
     FirebaseDatabase database;
     FirebaseStorage storage;
     ProgressDialog dialog;
+
     public AddPostFragment() {
         // Required empty public constructor
     }
@@ -66,11 +68,12 @@ public class AddPostFragment extends Fragment {
         dialog.setMessage("Please Wait....");
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
+
         database.getReference().child("Users")
-                        .child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
+                .child(FirebaseAuth.getInstance().getUid()).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if(snapshot.exists()){
+                        if (snapshot.exists()) {
                             User user = snapshot.getValue(User.class);
                             Picasso.get()
                                     .load(user.getProfile())
@@ -86,6 +89,7 @@ public class AddPostFragment extends Fragment {
 
                     }
                 });
+
         binding.postDescription.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -95,12 +99,12 @@ public class AddPostFragment extends Fragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String description = binding.postDescription.getText().toString();
-                if(!description.isEmpty()){
-                    binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.follow_btn_bg));
+                if (!description.isEmpty()) {
+                    binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.follow_btn_bg));
                     binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.white));
                     binding.postBtn.setEnabled(true);
-                }else{
-                    binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.follow_active_btn));
+                } else {
+                    binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.follow_active_btn));
                     binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.gray));
                     binding.postBtn.setEnabled(false);
                 }
@@ -111,13 +115,14 @@ public class AddPostFragment extends Fragment {
 
             }
         });
+
         binding.addImg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_GET_CONTENT);
                 intent.setType("image/*");
-                startActivityForResult(intent,10);
+                startActivityForResult(intent, 10);
             }
         });
 
@@ -127,7 +132,7 @@ public class AddPostFragment extends Fragment {
                 dialog.show();
                 final StorageReference reference = storage.getReference().child("posts")
                         .child(FirebaseAuth.getInstance().getUid())
-                        .child(new Date().getTime()+" ");
+                        .child(new Date().getTime() + " ");
                 reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
                     public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -156,21 +161,21 @@ public class AddPostFragment extends Fragment {
             }
         });
         return binding.getRoot();
-
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(data.getData()!=null){
+        if (resultCode == RESULT_OK && requestCode == 10 && data != null && data.getData() != null) {
             uri = data.getData();
             binding.postImage.setImageURI(uri);
             binding.postImage.setVisibility(View.VISIBLE);
 
-            binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(),R.drawable.follow_btn_bg));
+            binding.postBtn.setBackgroundDrawable(ContextCompat.getDrawable(getContext(), R.drawable.follow_btn_bg));
             binding.postBtn.setTextColor(getContext().getResources().getColor(R.color.white));
             binding.postBtn.setEnabled(true);
-
+        } else {
+            Toast.makeText(getContext(), "No image selected", Toast.LENGTH_SHORT).show();
         }
     }
 }

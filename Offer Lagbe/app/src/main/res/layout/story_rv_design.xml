@@ -32,7 +32,7 @@
         app:layout_constraintStart_toStartOf="@+id/story"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <View
+    <com.devlomi.circularstatusview.CircularStatusView
         android:id="@+id/view"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -40,7 +40,12 @@
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
         app:layout_constraintEnd_toEndOf="@id/profileImage"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/profileImage" />
+        app:layout_constraintTop_toTopOf="@id/profileImage"
+        app:portion_color="@color/Red"
+        app:portion_spacing="6dp"
+        app:portion_width="2dp"
+        app:portions_count="8"
+        />
 
     <ImageView
         android:id="@+id/storyType"

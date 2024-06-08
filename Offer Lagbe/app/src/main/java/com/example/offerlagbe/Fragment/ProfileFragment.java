@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import static android.app.Activity.RESULT_OK;
 import com.example.offerlagbe.Adapter.FollowersAdapter;
 import com.example.offerlagbe.Model.Follow;
 import com.example.offerlagbe.Model.User;
@@ -138,47 +139,46 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == 11){
-            if(data.getData()!=null){
-                Uri uri=data.getData();
-                binding.coverPhoto.setImageURI(uri);
-                final StorageReference reference = storage.getReference().
-                        child("cover_photo").child(FirebaseAuth.getInstance().getUid());
-                reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getContext(), "Cover Photo Saved", Toast.LENGTH_SHORT).show();
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                database.getReference().child("Users").child(auth.getUid()).child("coverPhoto").setValue(uri.toString());
-
-                            }
-                        });
-                    }
-                });
-            }
-        }else{
-            if(data.getData()!=null){
-                Uri uri=data.getData();
-                binding.profileImage.setImageURI(uri);
-                final StorageReference reference = storage.getReference().
-                        child("profile_image").child(FirebaseAuth.getInstance().getUid());
-                reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                        Toast.makeText(getContext(), "Profile Photo Saved", Toast.LENGTH_SHORT).show();
-                        reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
-                            @Override
-                            public void onSuccess(Uri uri) {
-                                database.getReference().child("Users").child(auth.getUid()).child("profile").setValue(uri.toString());
-
-                            }
-                        });
-                    }
-                });
-            }
+        if (requestCode == 11 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            binding.coverPhoto.setImageURI(uri);
+            final StorageReference reference = storage.getReference()
+                    .child("cover_photo")
+                    .child(FirebaseAuth.getInstance().getUid());
+            reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getContext(), "Cover Photo Saved", Toast.LENGTH_SHORT).show();
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            database.getReference().child("Users").child(auth.getUid()).child("coverPhoto").setValue(uri.toString());
+                        }
+                    });
+                }
+            });
+        } else if (requestCode == 22 && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            Uri uri = data.getData();
+            binding.profileImage.setImageURI(uri);
+            final StorageReference reference = storage.getReference()
+                    .child("profile_image")
+                    .child(FirebaseAuth.getInstance().getUid());
+            reference.putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(getContext(), "Profile Photo Saved", Toast.LENGTH_SHORT).show();
+                    reference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
+                        @Override
+                        public void onSuccess(Uri uri) {
+                            database.getReference().child("Users").child(auth.getUid()).child("profile").setValue(uri.toString());
+                        }
+                    });
+                }
+            });
+        } else {
+            // Handle the case where no image was selected or an error occurred
+            Toast.makeText(getContext(), "No image selected", Toast.LENGTH_SHORT).show();
         }
-
     }
+
 }
