@@ -7,7 +7,6 @@ public class User {
     private int followerCount;
     private String profile;
 
-
     public User() {
 
     }

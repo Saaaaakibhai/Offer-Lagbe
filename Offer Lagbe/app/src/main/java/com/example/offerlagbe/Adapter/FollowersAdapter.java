@@ -46,15 +46,24 @@ public class FollowersAdapter extends RecyclerView.Adapter<FollowersAdapter.view
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         User user = snapshot.getValue(User.class);
-                        Picasso.get()
-                                .load(user.getProfile())
-                                .placeholder(R.drawable.placeholder)
-                                .into(holder.binding.profileImage);
+                        if (user != null) {  // Add null check here
+                            if (user.getProfile() != null && !user.getProfile().isEmpty()) {
+                                Picasso.get()
+                                        .load(user.getProfile())
+                                        .placeholder(R.drawable.placeholder)
+                                        .into(holder.binding.profileImage);
+                            } else {
+                                holder.binding.profileImage.setImageResource(R.drawable.placeholder);  // Fallback if profile image URL is empty
+                            }
+                        } else {
+                            // Handle the case where user is null
+                            holder.binding.profileImage.setImageResource(R.drawable.placeholder);  // Fallback if user data is missing
+                        }
                     }
 
                     @Override
                     public void onCancelled(@NonNull DatabaseError error) {
-
+                        // Handle possible errors
                     }
                 });
 
@@ -66,12 +75,10 @@ public class FollowersAdapter extends RecyclerView.Adapter<FollowersAdapter.view
     }
 
     public class viewHolder extends RecyclerView.ViewHolder {
-        // ImageView profile;
         FriendRvSampleBinding binding;
 
         public viewHolder(@NonNull View itemView) {
             super(itemView);
-            // profile = itemView.findViewById(R.id.profileImage);
             binding = FriendRvSampleBinding.bind(itemView);
         }
     }

@@ -50,7 +50,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
                 .load(model.getPostImage())
                 .placeholder(R.drawable.placeholder)
                 .into(holder.binding.postImg);
-        holder.binding.like.setText(model.getPostLike() + "");
+        holder.binding.like.setText(model.getPostLike() +"");
+        holder.binding.comment.setText(model.getCommentCount()+"");
 
         String description = model.getPostDescription();
         if (description == null || description.equals("")) {
@@ -71,6 +72,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
                                 Picasso.get()
                                         .load(user.getProfile())
                                         .placeholder(R.drawable.placeholder)
+                                        .fit()
+                                        .centerCrop()
                                         .into(holder.binding.profileImage);
                                 holder.binding.brandUserName.setText(user.getName());
                                 holder.binding.about.setText(user.getCompanyname());
@@ -111,11 +114,15 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
                                                         if (model.getPostedBy() != null) {
                                                             FirebaseDatabase.getInstance().getReference()
                                                                     .child("posts")
-                                                                    .child(model.getPostedBy())
+                                                                    .child(model.getPostId())
                                                                     .child("postLike")
-                                                                    .setValue(model.getPostLike() + 1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                    .setValue(model.getPostLike() + 1)
+                                                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                         @Override
                                                                         public void onSuccess(Void unused) {
+                                                                            // Update UI with new like count
+                                                                            model.setPostLike(model.getPostLike() + 1);
+                                                                            holder.binding.like.setText(String.valueOf(model.getPostLike()));
                                                                             holder.binding.like.setCompoundDrawablesWithIntrinsicBounds(R.drawable.ic_heart_2, 0, 0, 0);
                                                                         }
                                                                     });
@@ -145,8 +152,6 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.viewHolder> {
             }
         });
     }
-
-
     @Override
     public int getItemCount() {
         return list.size();

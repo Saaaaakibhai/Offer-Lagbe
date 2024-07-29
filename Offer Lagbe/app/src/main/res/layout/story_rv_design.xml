@@ -6,7 +6,7 @@
     android:layout_height="wrap_content">
 
     <com.makeramen.roundedimageview.RoundedImageView
-        android:id="@+id/story"
+        android:id="@+id/addStoryImg"
         android:layout_width="@dimen/_130mdp"
         android:layout_height="@dimen/_85mdp"
         android:layout_marginEnd="16dp"
@@ -27,16 +27,15 @@
         android:layout_height="@dimen/_30mdp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="4dp"
-        android:background="@drawable/whitecircleforstoryprofile"
         android:src="@drawable/profile"
-        app:layout_constraintStart_toStartOf="@+id/story"
+        app:layout_constraintStart_toStartOf="@+id/addStoryImg"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.devlomi.circularstatusview.CircularStatusView
-        android:id="@+id/view"
+        android:id="@+id/statusCircle"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:background="@drawable/whitecircleforstoryprofile"
+        android:layout_marginStart="4dp"
         app:layout_constraintBottom_toBottomOf="@id/profileImage"
         app:layout_constraintEnd_toEndOf="@id/profileImage"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,8 +43,7 @@
         app:portion_color="@color/Red"
         app:portion_spacing="6dp"
         app:portion_width="2dp"
-        app:portions_count="8"
-        />
+        app:portions_count="8" />
 
     <ImageView
         android:id="@+id/storyType"
@@ -53,8 +51,8 @@
         android:layout_height="20dp"
         android:layout_marginTop="4dp"
         android:layout_marginEnd="8dp"
-        app:layout_constraintEnd_toEndOf="@+id/story"
-        app:layout_constraintTop_toTopOf="@+id/story"
+        app:layout_constraintEnd_toEndOf="@+id/addStoryImg"
+        app:layout_constraintTop_toTopOf="@+id/addStoryImg"
         app:srcCompat="@drawable/live" />
 
     <TextView
@@ -68,8 +66,8 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/story"
-        app:layout_constraintStart_toStartOf="@+id/story" />
+        app:layout_constraintBottom_toBottomOf="@+id/addStoryImg"
+        app:layout_constraintStart_toStartOf="@+id/addStoryImg" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

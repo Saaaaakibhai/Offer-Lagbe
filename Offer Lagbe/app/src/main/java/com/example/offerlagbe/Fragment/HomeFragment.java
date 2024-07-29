@@ -1,5 +1,6 @@
 package com.example.offerlagbe.Fragment;
 
+import android.app.ProgressDialog;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.cooltechworks.views.shimmer.ShimmerRecyclerView;
 import com.example.offerlagbe.Adapter.PostAdapter;
 import com.example.offerlagbe.Adapter.StoryAdapter;
 import com.example.offerlagbe.Model.Post;
@@ -34,12 +36,15 @@ import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.makeramen.roundedimageview.RoundedImageView;
 
+import org.checkerframework.checker.units.qual.A;
+
 import java.util.ArrayList;
 import java.util.Date;
 
 public class HomeFragment extends Fragment {
 
-    RecyclerView storyRv, dashboardRv;
+    RecyclerView storyRv ;
+    ShimmerRecyclerView dashboardRv;
     ArrayList<Story> list;
     ArrayList<Post> postList;
     ImageView addStory;
@@ -47,7 +52,7 @@ public class HomeFragment extends Fragment {
     FirebaseAuth auth;
     RoundedImageView addStoryImage;
     ActivityResultLauncher<String> galleryLauncher;
-
+    ProgressDialog dialog;
     FirebaseStorage storage;
 
     public HomeFragment() {
@@ -57,16 +62,25 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        dialog = new ProgressDialog(getContext());
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_home, container, false);
+        dashboardRv = view.findViewById(R.id.dashboardRV);
+        dashboardRv.showShimmerAdapter();
+
         database = FirebaseDatabase.getInstance();
         auth = FirebaseAuth.getInstance();
         storage = FirebaseStorage.getInstance();
+        dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+        dialog.setTitle("Story Uploading");
+        dialog.setMessage("Please Wait.....");
+        dialog.setCancelable(false);
 
+        // Story Recycler View
         storyRv = view.findViewById(R.id.storyRV);
         list = new ArrayList<>();
 
@@ -77,14 +91,41 @@ public class HomeFragment extends Fragment {
         storyRv.setNestedScrollingEnabled(false);
         storyRv.setAdapter(adapter);
 
-        dashboardRv = view.findViewById(R.id.dashboardRV);
+        database.getReference()
+                .child("stories").addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if(snapshot.exists()){
+                            list.clear();
+                            for(DataSnapshot storySnapshot : snapshot.getChildren()){
+                                Story story = new Story();
+                                story.setStoryBy(storySnapshot.getKey());
+                                story.setStoryAt(storySnapshot.child("postedBy").getValue(Long.class));
+
+                                ArrayList<UserStories> stories = new ArrayList<>();
+                                for(DataSnapshot snapshot1 : storySnapshot.child("userStories").getChildren()){
+                                    UserStories userStories = snapshot1.getValue(UserStories.class);
+                                    stories.add(userStories);
+                                }
+                                story.setStories(stories);
+                                list.add(story);
+                            }
+                            adapter.notifyDataSetChanged();
+                        }
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
         postList = new ArrayList<>();
 
         PostAdapter postAdapter = new PostAdapter(postList, getContext());
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext());
         dashboardRv.setLayoutManager(layoutManager);
         dashboardRv.setNestedScrollingEnabled(false);
-        dashboardRv.setAdapter(postAdapter);
 
         database.getReference().child("posts").addValueEventListener(new ValueEventListener() {
             @Override
@@ -97,6 +138,8 @@ public class HomeFragment extends Fragment {
                         postList.add(post);
                     }
                 }
+                dashboardRv.setAdapter(postAdapter);
+                dashboardRv.hideShimmerAdapter();
                 postAdapter.notifyDataSetChanged();
             }
 
@@ -120,6 +163,7 @@ public class HomeFragment extends Fragment {
                     public void onActivityResult(Uri result) {
                         if (result != null) {
                             addStoryImage.setImageURI(result);
+                            dialog.show();
                             final StorageReference reference = storage.getReference()
                                     .child("stories")
                                     .child(FirebaseAuth.getInstance().getUid())
@@ -145,7 +189,12 @@ public class HomeFragment extends Fragment {
                                                                     .child(FirebaseAuth.getInstance().getUid())
                                                                     .child("userStories")
                                                                     .push()
-                                                                    .setValue(stories);
+                                                                    .setValue(stories).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                        @Override
+                                                                        public void onSuccess(Void unused) {
+                                                                            dialog.dismiss();
+                                                                        }
+                                                                    });
                                                         }
                                                     });
                                         }
