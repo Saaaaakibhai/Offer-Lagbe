@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.offerlagbe.Adapter.CommentAdapter;
 import com.example.offerlagbe.Fragment.User;
 import com.example.offerlagbe.Model.Comment;
+import com.example.offerlagbe.Model.Notification;
 import com.example.offerlagbe.Model.Post;
 import com.example.offerlagbe.databinding.ActivityCommentBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -22,6 +23,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+
+import org.checkerframework.checker.units.qual.N;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -135,6 +138,20 @@ public class CommentActivity extends AppCompatActivity {
                                                                 public void onSuccess(Void unused) {
                                                                     binding.commentET.setText(""); // clear the comment input
                                                                     Toast.makeText(CommentActivity.this, "Commented", Toast.LENGTH_SHORT).show();
+
+                                                                    Notification notification = new Notification();
+                                                                    notification.setPostedBy(FirebaseAuth.getInstance().getUid());
+                                                                    notification.setNotificationAt(new Date().getTime());
+                                                                    notification.setPostID(postId);
+                                                                    notification.setPostedBy(postedBy);
+                                                                    notification.setType("comment");
+
+                                                                    FirebaseDatabase.getInstance().getReference()
+                                                                            .child("notification")
+                                                                            .child(postedBy)
+                                                                            .push()
+                                                                            .setValue(notification);
+
                                                                 }
                                                             });
                                                 }
