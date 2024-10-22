@@ -1,4 +1,4 @@
-# MobileApp - User and Company Interface
+# MobileApp - User and Company Interface of Offer lagbe
 
 This application provides a platform for both users and companies to interact. Users can follow companies for notifications on offers, while companies can upload posts, stories, and manage their profile. Below are some demo screenshots to showcase the various features of the app.
 
